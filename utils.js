@@ -18,3 +18,46 @@ function escapeHtml(unsafe="<script>console.log('hacked!')</script>") {
          .replace(/"/g, "&quot;")
          .replace(/'/g, "&#039;");
  }
+
+//This converts template literals to concatenated strings (for IE support)
+function templateToConcat(str="`${greeting}, my name is ${name}, and I have $${amount} dollars`"){
+  var newStr = ""
+  var curly1 = false;
+  var curly2 = false;
+	for(i = 0; i < str.length; i++){
+    //if its the first character, push a '
+    if(i == 0){
+      newStr+="'"
+    }
+     //if its the first character, push a '
+    else if(i == str.length-1){
+      newStr+="'"
+    }
+    else if(str[i]=="{" && curly1){
+      newStr+=""
+      curly1=false;
+      curly2=true
+    }
+    else if(str[i]=="}" && curly2){
+      newStr+=" + '"
+      curly2=false;
+    }
+    else{
+      //check if negative index exists
+    if(str[i-1]){
+      //check if it's the $ 
+      if(str[i] == "$" && str[i-1]!="\\" && str[i+1]=="{"){
+        curly1 = true
+         newStr+="'+ "
+        //push if it isn't a backtick
+      }else if(str[i]!="`"){
+        newStr+=str[i]
+      }
+      //push if it isn't a backtick
+    }else if(str[i]!="`"){
+      newStr+=str[i]
+    }
+    }
+  }
+  return newStr
+}
