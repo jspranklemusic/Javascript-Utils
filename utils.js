@@ -9,6 +9,17 @@ function randomizeArray(oldArr=[1,2,3,4,5,6,7,8,9],newArr=[]){
     }
 }
 
+//get day of the year
+
+function getDayOfYear(){
+	var now = new Date();
+	var start = new Date(now.getFullYear(), 0, 0);
+	var diff = now - start;
+	var oneDay = 1000 * 60 * 60 * 24;
+	var day = Math.floor(diff / oneDay);
+	return day
+}
+
 //converting unsafe html to safe html
 function escapeHtml(unsafe="<script>console.log('hacked!')</script>") {
     return unsafe
