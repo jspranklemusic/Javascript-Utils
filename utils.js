@@ -72,3 +72,7 @@ function templateToConcat(str="`${greeting}, my name is ${name}, and I have $${a
   }
   return newStr
 }
+
+module.exports = {
+    randomizeArray,getDayOfYear,escapeHtml,templateToConcat
+}
